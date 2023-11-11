@@ -14,9 +14,9 @@ namespace MessengerClient
         {
             InitializeComponent();
 
-            richTextBox1.Enabled = false;
-            richTextBox2.Enabled = false;
-            button1.Enabled = false;
+            ChatTextBox.Enabled = false;
+            WriteMessageTextBox.Enabled = false;
+            send.Enabled = false;
 
             try
             {
@@ -26,34 +26,31 @@ namespace MessengerClient
                 ip = IPAddress.Parse(connect_info[0]);
                 port = int.Parse(connect_info[1]);
 
-                label4.ForeColor = Color.Green;
-                label4.Text = "Настройки: \n IP Сервера: " + connect_info[0] + "\n Порт сервера: " + connect_info[1];
+                info.ForeColor = Color.Green;
+                info.Text = "Настройки: \n IP Сервера: " + connect_info[0] + "\n Порт сервера: " + connect_info[1];
 
 
             }
             catch (Exception ex)
             {
-                label4.ForeColor= Color.Red;
-                label4.Text = "Настройки не найдены!";
+                info.ForeColor= Color.Red;
+                info.Text = "Настройки не найдены!";
                 Options options = new Options();
             }
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
 
-        }
-
-        private void Form1_Load_1(object sender, EventArgs e)
-        {
-
-        }
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Options options = new Options();
             options.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

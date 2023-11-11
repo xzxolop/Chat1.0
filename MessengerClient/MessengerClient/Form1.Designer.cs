@@ -28,32 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1=new Button();
+            send=new Button();
             button2=new Button();
             textBox1=new TextBox();
-            label1=new Label();
+            InputName=new Label();
             label2=new Label();
             label3=new Label();
-            richTextBox1=new RichTextBox();
-            richTextBox2=new RichTextBox();
+            ChatTextBox=new RichTextBox();
+            WriteMessageTextBox=new RichTextBox();
             menuStrip1=new MenuStrip();
             менюToolStripMenuItem=new ToolStripMenuItem();
             настройкиToolStripMenuItem=new ToolStripMenuItem();
             выходToolStripMenuItem=new ToolStripMenuItem();
             авторToolStripMenuItem=new ToolStripMenuItem();
             voroninsToolStripMenuItem=new ToolStripMenuItem();
-            label4=new Label();
+            info=new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // button1
+            // send
             // 
-            button1.Location=new Point(464, 315);
-            button1.Name="button1";
-            button1.Size=new Size(85, 87);
-            button1.TabIndex=0;
-            button1.Text="Отправить";
-            button1.UseVisualStyleBackColor=true;
+            send.Location=new Point(464, 315);
+            send.Name="send";
+            send.Size=new Size(85, 87);
+            send.TabIndex=0;
+            send.Text="Отправить";
+            send.UseVisualStyleBackColor=true;
             // 
             // button2
             // 
@@ -63,6 +63,7 @@
             button2.TabIndex=1;
             button2.Text="Вход";
             button2.UseVisualStyleBackColor=true;
+            button2.Click+=button2_Click;
             // 
             // textBox1
             // 
@@ -71,14 +72,14 @@
             textBox1.Size=new Size(270, 23);
             textBox1.TabIndex=2;
             // 
-            // label1
+            // InputName
             // 
-            label1.AutoSize=true;
-            label1.Location=new Point(12, 37);
-            label1.Name="label1";
-            label1.Size=new Size(78, 15);
-            label1.TabIndex=3;
-            label1.Text="Введите имя:";
+            InputName.AutoSize=true;
+            InputName.Location=new Point(12, 37);
+            InputName.Name="InputName";
+            InputName.Size=new Size(78, 15);
+            InputName.TabIndex=3;
+            InputName.Text="Введите имя:";
             // 
             // label2
             // 
@@ -98,21 +99,21 @@
             label3.TabIndex=5;
             label3.Text="Написать сообщение...";
             // 
-            // richTextBox1
+            // ChatTextBox
             // 
-            richTextBox1.Location=new Point(12, 118);
-            richTextBox1.Name="richTextBox1";
-            richTextBox1.Size=new Size(537, 166);
-            richTextBox1.TabIndex=6;
-            richTextBox1.Text="";
+            ChatTextBox.Location=new Point(12, 118);
+            ChatTextBox.Name="ChatTextBox";
+            ChatTextBox.Size=new Size(537, 166);
+            ChatTextBox.TabIndex=6;
+            ChatTextBox.Text="";
             // 
-            // richTextBox2
+            // WriteMessageTextBox
             // 
-            richTextBox2.Location=new Point(12, 315);
-            richTextBox2.Name="richTextBox2";
-            richTextBox2.Size=new Size(446, 87);
-            richTextBox2.TabIndex=7;
-            richTextBox2.Text="";
+            WriteMessageTextBox.Location=new Point(12, 315);
+            WriteMessageTextBox.Name="WriteMessageTextBox";
+            WriteMessageTextBox.Size=new Size(446, 87);
+            WriteMessageTextBox.TabIndex=7;
+            WriteMessageTextBox.Text="";
             // 
             // menuStrip1
             // 
@@ -133,14 +134,14 @@
             // настройкиToolStripMenuItem
             // 
             настройкиToolStripMenuItem.Name="настройкиToolStripMenuItem";
-            настройкиToolStripMenuItem.Size=new Size(180, 22);
+            настройкиToolStripMenuItem.Size=new Size(134, 22);
             настройкиToolStripMenuItem.Text="Настройки";
             настройкиToolStripMenuItem.Click+=настройкиToolStripMenuItem_Click;
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name="выходToolStripMenuItem";
-            выходToolStripMenuItem.Size=new Size(180, 22);
+            выходToolStripMenuItem.Size=new Size(134, 22);
             выходToolStripMenuItem.Text="Выход";
             // 
             // авторToolStripMenuItem
@@ -156,29 +157,29 @@
             voroninsToolStripMenuItem.Size=new Size(116, 22);
             voroninsToolStripMenuItem.Text="Vor. inc.";
             // 
-            // label4
+            // info
             // 
-            label4.AutoSize=true;
-            label4.Location=new Point(452, 42);
-            label4.Name="label4";
-            label4.Size=new Size(28, 15);
-            label4.TabIndex=10;
-            label4.Text="info";
+            info.AutoSize=true;
+            info.Location=new Point(452, 42);
+            info.Name="info";
+            info.Size=new Size(28, 15);
+            info.TabIndex=10;
+            info.Text="info";
             // 
             // Form1
             // 
             AutoScaleDimensions=new SizeF(7F, 15F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(800, 450);
-            Controls.Add(label4);
-            Controls.Add(richTextBox2);
-            Controls.Add(richTextBox1);
+            Controls.Add(info);
+            Controls.Add(WriteMessageTextBox);
+            Controls.Add(ChatTextBox);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(InputName);
             Controls.Add(textBox1);
             Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(send);
             Controls.Add(menuStrip1);
             MainMenuStrip=menuStrip1;
             Name="Form1";
@@ -191,20 +192,20 @@
 
         #endregion
 
-        private Button button1;
+        private Button send;
         private Button button2;
         private TextBox textBox1;
-        private Label label1;
+        private Label InputName;
         private Label label2;
         private Label label3;
-        private RichTextBox richTextBox1;
-        private RichTextBox richTextBox2;
+        private RichTextBox ChatTextBox;
+        private RichTextBox WriteMessageTextBox;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem менюToolStripMenuItem;
         private ToolStripMenuItem настройкиToolStripMenuItem;
         private ToolStripMenuItem выходToolStripMenuItem;
         private ToolStripMenuItem авторToolStripMenuItem;
-        private Label label4;
+        private Label info;
         private ToolStripMenuItem voroninsToolStripMenuItem;
     }
 }
