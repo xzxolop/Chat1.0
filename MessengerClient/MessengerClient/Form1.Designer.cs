@@ -135,6 +135,7 @@
             настройкиToolStripMenuItem.Name="настройкиToolStripMenuItem";
             настройкиToolStripMenuItem.Size=new Size(180, 22);
             настройкиToolStripMenuItem.Text="Настройки";
+            настройкиToolStripMenuItem.Click+=настройкиToolStripMenuItem_Click;
             // 
             // выходToolStripMenuItem
             // 
@@ -158,7 +159,7 @@
             // label4
             // 
             label4.AutoSize=true;
-            label4.Location=new Point(672, 42);
+            label4.Location=new Point(452, 42);
             label4.Name="label4";
             label4.Size=new Size(28, 15);
             label4.TabIndex=10;
