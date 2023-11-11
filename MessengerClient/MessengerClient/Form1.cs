@@ -33,7 +33,9 @@ namespace MessengerClient
             }
             catch (Exception ex)
             {
-
+                label4.ForeColor= Color.Red;
+                label4.Text = "Настройки не найдены!";
+                Options options = new Options();
             }
 
         }

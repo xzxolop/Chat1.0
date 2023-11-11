@@ -133,13 +133,13 @@
             // настройкиToolStripMenuItem
             // 
             настройкиToolStripMenuItem.Name="настройкиToolStripMenuItem";
-            настройкиToolStripMenuItem.Size=new Size(134, 22);
+            настройкиToolStripMenuItem.Size=new Size(180, 22);
             настройкиToolStripMenuItem.Text="Настройки";
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name="выходToolStripMenuItem";
-            выходToolStripMenuItem.Size=new Size(134, 22);
+            выходToolStripMenuItem.Size=new Size(180, 22);
             выходToolStripMenuItem.Text="Выход";
             // 
             // авторToolStripMenuItem
