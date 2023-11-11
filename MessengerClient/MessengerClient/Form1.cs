@@ -1,7 +1,6 @@
 using System.Net;
 using System.Net.Sockets;
 
-
 namespace MessengerClient
 {
     public partial class Form1 : Form
@@ -48,9 +47,20 @@ namespace MessengerClient
             options.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
 
+        private void Connect_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text!="" &&  textBox1.Text!=" ")
+            {
+                send.Enabled = true;
+                WriteMessageTextBox.Enabled=true;
+                Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                if (ip!=null)
+                {
+                    Client.Connect(ip, port);
+                }
+
+            }
         }
     }
 }

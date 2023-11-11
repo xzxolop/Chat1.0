@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             send=new Button();
-            button2=new Button();
+            Connect=new Button();
             textBox1=new TextBox();
             InputName=new Label();
             label2=new Label();
@@ -55,15 +55,15 @@
             send.Text="Отправить";
             send.UseVisualStyleBackColor=true;
             // 
-            // button2
+            // Connect
             // 
-            button2.Location=new Point(288, 42);
-            button2.Name="button2";
-            button2.Size=new Size(127, 46);
-            button2.TabIndex=1;
-            button2.Text="Вход";
-            button2.UseVisualStyleBackColor=true;
-            button2.Click+=button2_Click;
+            Connect.Location=new Point(288, 42);
+            Connect.Name="Connect";
+            Connect.Size=new Size(127, 46);
+            Connect.TabIndex=1;
+            Connect.Text="Вход";
+            Connect.UseVisualStyleBackColor=true;
+            Connect.Click+=Connect_Click;
             // 
             // textBox1
             // 
@@ -178,7 +178,7 @@
             Controls.Add(label2);
             Controls.Add(InputName);
             Controls.Add(textBox1);
-            Controls.Add(button2);
+            Controls.Add(Connect);
             Controls.Add(send);
             Controls.Add(menuStrip1);
             MainMenuStrip=menuStrip1;
@@ -193,7 +193,7 @@
         #endregion
 
         private Button send;
-        private Button button2;
+        private Button Connect;
         private TextBox textBox1;
         private Label InputName;
         private Label label2;
