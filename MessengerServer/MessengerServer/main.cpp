@@ -54,8 +54,8 @@ int main() {
 	
 	freeaddrinfo(result);
 
-	std::cout << "Start server.." << std::endl;
-	char m_connect[] = "Connect.."; // то что видит клиент при подключении
+	std::cout << "Start server..." << std::endl;
+	char m_connect[] = "Connect...;;;5"; // то что видит клиент при подключении
 	
 	//Обработка клиентов
 	for (;; Sleep(75)) {
