@@ -7,7 +7,7 @@ SOCKET Connect;
 SOCKET* Connections;
 SOCKET Listen;
 
-
+int ClientCount = 0;
 int main() {
 	setlocale(LC_ALL, "rus");
 	WSAData data;
@@ -40,8 +40,18 @@ int main() {
 	freeaddrinfo(result);
 
 	std::cout << "Start server.." << std::endl;
-	char m_connect[] = "Connect..";
+	char m_connect[] = "Connect.."; // то что видит клиент при подключении
+	
+	//Ожидание подключения от клиента
 	for (;; Sleep(75)) {
+		
+		if (Connect = accept(Listen, nullptr, nullptr)) {
+			std::cout << "Client connect..." << std::endl;
+			Connections[ClientCount] = Connect;
+			send(Connections[ClientCount], m_connect, strlen(m_connect),NULL);
+			ClientCount++;
+		}
+
 
 	}
 	
