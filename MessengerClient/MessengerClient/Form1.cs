@@ -48,6 +48,16 @@ namespace MessengerClient
             options.Show();
         }
 
+        void SendMessage(string message)
+        {
+            if (message!="" && message!=" ")
+            {
+                byte[] buffer = new byte[1024];
+                buffer = Encoding.UTF8.GetBytes(message);
+                Client.Send(buffer);
+            }
+        }
+
         void RecvMessage()
         {
             byte[] buffer = new byte[1024];
@@ -97,6 +107,12 @@ namespace MessengerClient
                 }
 
             }
+        }
+
+        private void send_Click(object sender, EventArgs e)
+        {
+            SendMessage("\n" + textBox1 + ": " + WriteMessageTextBox.Text + ";;;5");
+            WriteMessageTextBox.Clear();
         }
     }
 }

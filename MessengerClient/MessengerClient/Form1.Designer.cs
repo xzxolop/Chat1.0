@@ -54,6 +54,7 @@
             send.TabIndex=0;
             send.Text="Отправить";
             send.UseVisualStyleBackColor=true;
+            send.Click+=send_Click;
             // 
             // Connect
             // 
