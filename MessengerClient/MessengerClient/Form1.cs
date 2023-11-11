@@ -9,7 +9,7 @@ namespace MessengerClient
         static private Socket Client;
         private IPAddress ip = null;
         private int port = 0;
-
+        private Thread th;
         public Form1()
         {
             InitializeComponent();
@@ -104,6 +104,8 @@ namespace MessengerClient
                 if (ip!=null)
                 {
                     Client.Connect(ip, port);
+                    th = new Thread(delegate () { RecvMessage(); });
+                    th.Start();
                 }
 
             }
@@ -113,6 +115,15 @@ namespace MessengerClient
         {
             SendMessage("\n" + textBox1 + ": " + WriteMessageTextBox.Text + ";;;5");
             WriteMessageTextBox.Clear();
+        }
+
+        private void ‚˚ıÓ‰ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (th!=null)
+            {
+                th.Abort();
+            }
+            Application.Exit();
         }
     }
 }
