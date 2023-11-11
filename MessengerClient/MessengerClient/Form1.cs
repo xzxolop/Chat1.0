@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace MessengerClient
 {
@@ -47,7 +48,42 @@ namespace MessengerClient
             options.Show();
         }
 
+        void RecvMessage()
+        {
+            byte[] buffer = new byte[1024];
+            for (int i = 0; i<buffer.Length; i++)
+            {
+                buffer[i]=0;
+            }
+            while (true)
+            {
+                try
+                {
+                    Client.Receive(buffer);
+                    string message = Encoding.UTF8.GetString(buffer);
+                    int count = message.IndexOf(";;;5"); //конец сообщения
+                    if (count == -1)
+                    {
+                        continue;
+                    }
 
+                    string ClearMessage = "";
+                    for (int i = 0; i < count; i++)
+                    {
+                        ClearMessage += message[i];
+                    }
+
+                    this.Invoke((MethodInvoker)delegate ()
+                    {
+                        ChatTextBox.AppendText(ClearMessage);
+                    });
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+        }
         private void Connect_Click(object sender, EventArgs e)
         {
             if (textBox1.Text!="" &&  textBox1.Text!=" ")
