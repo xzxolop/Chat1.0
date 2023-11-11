@@ -41,8 +41,8 @@
             настройкиToolStripMenuItem=new ToolStripMenuItem();
             выходToolStripMenuItem=new ToolStripMenuItem();
             авторToolStripMenuItem=new ToolStripMenuItem();
+            voroninsToolStripMenuItem=new ToolStripMenuItem();
             label4=new Label();
-            label5=new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -144,34 +144,31 @@
             // 
             // авторToolStripMenuItem
             // 
+            авторToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { voroninsToolStripMenuItem });
             авторToolStripMenuItem.Name="авторToolStripMenuItem";
             авторToolStripMenuItem.Size=new Size(52, 20);
             авторToolStripMenuItem.Text="Автор";
             // 
+            // voroninsToolStripMenuItem
+            // 
+            voroninsToolStripMenuItem.Name="voroninsToolStripMenuItem";
+            voroninsToolStripMenuItem.Size=new Size(116, 22);
+            voroninsToolStripMenuItem.Text="Vor. inc.";
+            // 
             // label4
             // 
             label4.AutoSize=true;
-            label4.Location=new Point(0, 0);
+            label4.Location=new Point(672, 42);
             label4.Name="label4";
-            label4.Size=new Size(38, 15);
-            label4.TabIndex=9;
-            label4.Text="label4";
-            // 
-            // label5
-            // 
-            label5.AutoSize=true;
-            label5.Location=new Point(672, 42);
-            label5.Name="label5";
-            label5.Size=new Size(28, 15);
-            label5.TabIndex=10;
-            label5.Text="info";
+            label4.Size=new Size(28, 15);
+            label4.TabIndex=10;
+            label4.Text="info";
             // 
             // Form1
             // 
             AutoScaleDimensions=new SizeF(7F, 15F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(800, 450);
-            Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(richTextBox2);
             Controls.Add(richTextBox1);
@@ -207,6 +204,6 @@
         private ToolStripMenuItem выходToolStripMenuItem;
         private ToolStripMenuItem авторToolStripMenuItem;
         private Label label4;
-        private Label label5;
+        private ToolStripMenuItem voroninsToolStripMenuItem;
     }
 }

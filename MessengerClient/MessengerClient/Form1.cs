@@ -13,6 +13,29 @@ namespace MessengerClient
         public Form1()
         {
             InitializeComponent();
+
+            richTextBox1.Enabled = false;
+            richTextBox2.Enabled = false;
+            button1.Enabled = false;
+
+            try
+            {
+                using var sr = new StreamReader(@"Client_info/data_info.txt");
+                string buffer = sr.ReadToEnd();
+                string[] connect_info = buffer.Split(':');
+                ip = IPAddress.Parse(connect_info[0]);
+                port = int.Parse(connect_info[1]);
+
+                label4.ForeColor = Color.Green;
+                label4.Text = "Настройки: \n IP Сервера: " + connect_info[0] + "\n Порт сервера: " + connect_info[1];
+
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
