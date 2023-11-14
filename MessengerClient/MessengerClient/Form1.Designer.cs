@@ -30,7 +30,7 @@
         {
             send=new Button();
             Connect=new Button();
-            textBox1=new TextBox();
+            NameBox=new TextBox();
             InputName=new Label();
             label2=new Label();
             label3=new Label();
@@ -66,12 +66,12 @@
             Connect.UseVisualStyleBackColor=true;
             Connect.Click+=Connect_Click;
             // 
-            // textBox1
+            // NameBox
             // 
-            textBox1.Location=new Point(12, 55);
-            textBox1.Name="textBox1";
-            textBox1.Size=new Size(270, 23);
-            textBox1.TabIndex=2;
+            NameBox.Location=new Point(12, 55);
+            NameBox.Name="NameBox";
+            NameBox.Size=new Size(270, 23);
+            NameBox.TabIndex=2;
             // 
             // InputName
             // 
@@ -135,14 +135,14 @@
             // настройкиToolStripMenuItem
             // 
             настройкиToolStripMenuItem.Name="настройкиToolStripMenuItem";
-            настройкиToolStripMenuItem.Size=new Size(180, 22);
+            настройкиToolStripMenuItem.Size=new Size(134, 22);
             настройкиToolStripMenuItem.Text="Настройки";
             настройкиToolStripMenuItem.Click+=настройкиToolStripMenuItem_Click;
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name="выходToolStripMenuItem";
-            выходToolStripMenuItem.Size=new Size(180, 22);
+            выходToolStripMenuItem.Size=new Size(134, 22);
             выходToolStripMenuItem.Text="Выход";
             выходToolStripMenuItem.Click+=выходToolStripMenuItem_Click;
             // 
@@ -179,7 +179,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(InputName);
-            Controls.Add(textBox1);
+            Controls.Add(NameBox);
             Controls.Add(Connect);
             Controls.Add(send);
             Controls.Add(menuStrip1);
@@ -196,7 +196,7 @@
 
         private Button send;
         private Button Connect;
-        private TextBox textBox1;
+        private TextBox NameBox;
         private Label InputName;
         private Label label2;
         private Label label3;

@@ -37,10 +37,7 @@ namespace MessengerClient
                 info.Text = "Íàñòğîéêè íå íàéäåíû!";
                 Options options = new Options();
             }
-
         }
-
-
 
         private void íàñòğîéêèToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -56,6 +53,12 @@ namespace MessengerClient
                 buffer = Encoding.UTF8.GetBytes(message);
                 Client.Send(buffer);
             }
+        }
+
+        private void send_Click(object sender, EventArgs e)
+        {
+            SendMessage("\n" + NameBox.Text + ": " + WriteMessageTextBox.Text +" "+ DateTime.Now.Hour + ":" + DateTime.Now.Minute + ";;;5");
+            WriteMessageTextBox.Clear();
         }
 
         void RecvMessage()
@@ -94,9 +97,10 @@ namespace MessengerClient
                 }
             }
         }
+
         private void Connect_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text!="" &&  textBox1.Text!=" ")
+            if (NameBox.Text!="" &&  NameBox.Text!=" ")
             {
                 send.Enabled = true;
                 WriteMessageTextBox.Enabled=true;
@@ -107,16 +111,9 @@ namespace MessengerClient
                     th = new Thread(delegate () { RecvMessage(); });
                     th.Start();
                 }
-
             }
         }
-
-        private void send_Click(object sender, EventArgs e)
-        {
-            SendMessage("\n" + textBox1 + ": " + WriteMessageTextBox.Text + ";;;5");
-            WriteMessageTextBox.Clear();
-        }
-
+                
         private void âûõîäToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (th!=null)
