@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace MessengerClient
 {
@@ -58,7 +47,7 @@ namespace MessengerClient
                 InfoBlock.Text += "\n Status: " + ClientInfo["status"];
         }
 
-        public void ParseIpFromFile()
+        private void ParseIpFromFile()
         {
             try
             {
@@ -79,7 +68,7 @@ namespace MessengerClient
             }
         }
 
-        public void CreateFileInfo(string IPport)
+        private void CreateFileInfo(string IPport)
         {
             try
             {
@@ -96,7 +85,7 @@ namespace MessengerClient
             }
         }
 
-        public void ConnectUser()
+        private void ConnectUser()
         {
             try
             {
@@ -120,7 +109,7 @@ namespace MessengerClient
             }
         }
 
-        public void DisconnectUser()
+        private void DisconnectUser()
         {
             if(IsConnected)
             {
@@ -131,7 +120,7 @@ namespace MessengerClient
             }
         }
 
-        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        public void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
             if (IsConnected)
             {
