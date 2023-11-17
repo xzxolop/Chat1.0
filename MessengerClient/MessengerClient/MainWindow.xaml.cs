@@ -27,14 +27,37 @@ namespace MessengerClient
         private IPAddress ip = null;
         private int port = 0;
         bool IsConnected = false;
+        Dictionary<string, string> ClientInfo;
+
 
         public MainWindow()
         {
             InitializeComponent();
-
+            
+            InitializeClientInfo();
             CreateFileInfo("127.0.0.1:7770");
             ParseIpFromFile();
         }
+
+        private void InitializeClientInfo()
+        {
+            ClientInfo = new Dictionary<string, string>();
+            ClientInfo["ip"] = "";
+            ClientInfo["port"] = "";
+            ClientInfo["status"] = "";
+        }
+
+        private void ShowInfo()
+        {
+            InfoBlock.Text = "Info:";
+            if (!string.IsNullOrEmpty(ClientInfo["ip"]))
+                InfoBlock.Text += "\n Ip: " + ClientInfo["ip"];
+            if (!string.IsNullOrEmpty(ClientInfo["port"]))
+                InfoBlock.Text += "\n Port: " + ClientInfo["port"];
+            if (!string.IsNullOrEmpty(ClientInfo["status"]))
+                InfoBlock.Text += "\n Status: " + ClientInfo["status"];
+        }
+
         public void ParseIpFromFile()
         {
             try
@@ -45,11 +68,14 @@ namespace MessengerClient
                 string[] connect_info = buffer.Split(':');
                 ip = IPAddress.Parse(connect_info[0]);
                 port = int.Parse(connect_info[1]);
-                Info.Text = "IP: " + connect_info[0] + '\n' + "Port: " + connect_info[1];
+                ClientInfo["ip"] = ip.ToString();
+                ClientInfo["port"] = port.ToString();
+                ShowInfo();
             }
             catch
             {
-                Info.Text = "Info: Не удалось подключиться";
+                ClientInfo["status"] = "Не удалось считать IP из файла";
+                ShowInfo();
             }
         }
 
@@ -65,7 +91,8 @@ namespace MessengerClient
                 }
             }
             catch {
-                Info.Text = "Не удалось записать в файл IPport";
+                ClientInfo["status"] = "Не удалось записать в файл IPport";
+                ShowInfo();
             }
         }
 
@@ -87,7 +114,8 @@ namespace MessengerClient
                 }
             }
             catch {
-                Info.Text = "Не удалось подключиться к серверу";
+                ClientInfo["status"] += "Не удалось подключиться к серверу";
+                ShowInfo();
             }
         }
 
