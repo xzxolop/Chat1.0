@@ -103,13 +103,14 @@ namespace MessengerClient
                 if (!IsConnected)
                 {
                     Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    ConnectButton.Content = "Отключиться";
                     SendMessageButton.IsEnabled = true;
                     WriteMessageBox.IsEnabled = true;
 
                     if (ip!=null)
                     {
                         Client.Connect(ip, port);
+                        IsConnected = true;
+                        ConnectButton.Content = "Отключиться";
                     }
                 }
             }
@@ -123,7 +124,10 @@ namespace MessengerClient
         {
             if(IsConnected)
             {
+                Client.Disconnect(false);
+                IsConnected = false;
                 ConnectButton.Content = "Подключиться";
+
             }
         }
 
