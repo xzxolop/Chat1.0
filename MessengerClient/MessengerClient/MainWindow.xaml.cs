@@ -32,7 +32,7 @@ namespace MessengerClient
         {
             InitializeComponent();
 
-            CreateClientInfo("146.0.1.0:55555");
+            CreateFileInfo("127.0.0.1:7770");
             ParseIpFromFile();
         }
         public void ParseIpFromFile()
@@ -53,7 +53,7 @@ namespace MessengerClient
             }
         }
 
-        public void CreateClientInfo(string IPport)
+        public void CreateFileInfo(string IPport)
         {
             try
             {
@@ -71,9 +71,23 @@ namespace MessengerClient
 
         public void ConnectUser()
         {
-            if(!IsConnected)
+            try
             {
-                ConnectButton.Content = "Отключиться";
+                if (!IsConnected)
+                {
+                    Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    ConnectButton.Content = "Отключиться";
+                    SendMessageButton.IsEnabled = true;
+                    WriteMessageBox.IsEnabled = true;
+
+                    if (ip!=null)
+                    {
+                        Client.Connect(ip, port);
+                    }
+                }
+            }
+            catch {
+                Info.Text = "Не удалось подключиться к серверу";
             }
         }
 
@@ -85,7 +99,16 @@ namespace MessengerClient
             }
         }
 
-
-
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsConnected)
+            {
+                DisconnectUser();
+            }
+            else
+            {
+                ConnectUser();
+            }
+        }
     }
 }
