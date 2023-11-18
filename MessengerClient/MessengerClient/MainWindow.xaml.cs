@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Windows;
 
 
@@ -46,6 +48,8 @@ namespace MessengerClient
             if (!string.IsNullOrEmpty(ClientInfo["status"]))
                 InfoBlock.Text += "\n Status: " + ClientInfo["status"];
         }
+
+        
 
         private void ParseIpFromFile()
         {
@@ -104,7 +108,7 @@ namespace MessengerClient
                 }
             }
             catch {
-                ClientInfo["status"] += "Не удалось подключиться к серверу";
+                ClientInfo["status"] = "Не удалось подключиться к серверу";
                 ShowInfo();
             }
         }
@@ -130,6 +134,12 @@ namespace MessengerClient
             {
                 ConnectUser();
             }
+        }
+
+        private void SendMessageButton_Click(object sender, RoutedEventArgs e)
+        {
+            byte[] buffer = Encoding.UTF8.GetBytes(WriteMessageBox.Text);
+            Client.Send(buffer);
         }
     }
 }
