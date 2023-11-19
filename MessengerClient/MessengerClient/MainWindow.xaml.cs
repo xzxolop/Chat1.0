@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows;
-
+using System.Threading;
 
 namespace MessengerClient
 {
@@ -19,7 +19,7 @@ namespace MessengerClient
         private int port = 0;
         bool IsConnected = false;
         Dictionary<string, string> ClientInfo;
-
+        private Thread th;
 
         public MainWindow()
         {
@@ -107,6 +107,9 @@ namespace MessengerClient
                         Client.Connect(ip, port);
                         IsConnected = true;
                         ConnectButton.Content = "Отключиться";
+
+                        th = new Thread(delegate () { RecvMessage(); });
+                        th.Start();
                     }
                 }
             }
@@ -149,5 +152,36 @@ namespace MessengerClient
             byte[] buffer = Encoding.UTF8.GetBytes(WriteMessageBox.Text);
             Client.Send(buffer);
         }
+
+        public void RecvMessage()
+        {
+            byte[] buffer = new byte[1024];
+            for (int i = 0; i<buffer.Length; i++)
+            {
+                buffer[i]=0;
+            }
+            while (true)
+            {
+                try
+                {
+                    Client.Receive(buffer);
+                    string message = Encoding.UTF8.GetString(buffer);
+                    
+
+                    
+                    this.Dispatcher.Invoke((Action)(() =>
+                    {
+                        ChatBox.AppendText(message);
+                    }));
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+        }
+
+
     }
 }
