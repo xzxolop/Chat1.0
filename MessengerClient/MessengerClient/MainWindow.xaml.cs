@@ -24,12 +24,16 @@ namespace MessengerClient
         public MainWindow()
         {
             InitializeComponent();
+            ChatBox.IsEnabled = false;
+            WriteMessageBox.IsEnabled = false;
+            SendMessageButton.IsEnabled = false;
             
             InitializeClientInfo();
             CreateFileInfo("127.0.0.1:7770");
             ParseIpFromFile();
         }
 
+        
         private void InitializeClientInfo()
         {
             ClientInfo = new Dictionary<string, string>();
@@ -48,8 +52,6 @@ namespace MessengerClient
             if (!string.IsNullOrEmpty(ClientInfo["status"]))
                 InfoBlock.Text += "\n Status: " + ClientInfo["status"];
         }
-
-        
 
         private void ParseIpFromFile()
         {
@@ -98,6 +100,7 @@ namespace MessengerClient
                     Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     SendMessageButton.IsEnabled = true;
                     WriteMessageBox.IsEnabled = true;
+                    ChatBox.IsEnabled = true;
 
                     if (ip!=null)
                     {
@@ -118,6 +121,11 @@ namespace MessengerClient
             if(IsConnected)
             {
                 Client.Disconnect(false);
+                
+                SendMessageButton.IsEnabled = false;
+                WriteMessageBox.IsEnabled = false;
+                ChatBox.IsEnabled = false;
+
                 IsConnected = false;
                 ConnectButton.Content = "Подключиться";
 
