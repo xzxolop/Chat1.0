@@ -16,6 +16,13 @@
         <TextBlock x:Name="InfoBlock" HorizontalAlignment="Left" Margin="540,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="227" Width="198"/>
         <TextBlock HorizontalAlignment="Left" Margin="528,49,0,0" TextWrapping="Wrap" Text="Info:" VerticalAlignment="Top"/>
 
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="Меню" Height="25" VerticalAlignment="Top" >
+                <MenuItem Header="Настройки">
+                    <MenuItem Header="IP/Port" Click="MenuItem_Click"></MenuItem>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
 
     </Grid>
 </Window>
