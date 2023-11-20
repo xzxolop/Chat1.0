@@ -100,7 +100,7 @@ namespace MessengerClient
                     Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     SendMessageButton.IsEnabled = true;
                     WriteMessageBox.IsEnabled = true;
-                    ChatBox.IsEnabled = true;
+                    
 
                     if (ip!=null)
                     {
@@ -131,7 +131,6 @@ namespace MessengerClient
 
                 IsConnected = false;
                 ConnectButton.Content = "Подключиться";
-
             }
         }
 
@@ -149,8 +148,16 @@ namespace MessengerClient
 
         private void SendMessageButton_Click(object sender, RoutedEventArgs e)
         {
-            byte[] buffer = Encoding.UTF8.GetBytes(WriteMessageBox.Text);
+            string min = DateTime.Now.Minute.ToString();
+            
+            if (min.Length == 1)
+            {
+                min = "0" + min;
+            }
+
+            byte[] buffer = Encoding.UTF8.GetBytes("\n" + UserNameBox.Text + ": " + WriteMessageBox.Text +" | "+ DateTime.Now.Hour + ":" + min + ";;;5");
             Client.Send(buffer);
+            WriteMessageBox.Clear();
         }
 
         public void RecvMessage()
@@ -160,24 +167,42 @@ namespace MessengerClient
             {
                 buffer[i]=0;
             }
+
             while (true)
             {
                 try
                 {
+                    //receiving a message from the server
                     Client.Receive(buffer);
                     string message = Encoding.UTF8.GetString(buffer);
-                    
 
-                    
+                    var EndOfString = message.IndexOf(";;;5");
+
+                    if (EndOfString == -1)
+                    {
+                        continue;
+                    }
+
+                    message = message.Substring(0, EndOfString);
+
+                    for (int i=0; i<buffer.Length; i++)
+                    {
+                        buffer[i] = 0;
+                    }
+
+                    //print a message from the server
                     this.Dispatcher.Invoke((Action)(() =>
                     {
+                        //message =  UserNameBox.Text + ": " + message +" | "+ DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n";
                         ChatBox.AppendText(message);
+                        
                     }));
 
                 }
-                catch (Exception ex)
+                catch
                 {
-
+                    ClientInfo["status"] = "Не удалось получить сообщение от сервера";
+                    ShowInfo();
                 }
             }
         }
