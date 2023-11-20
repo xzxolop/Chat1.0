@@ -13,7 +13,8 @@
         <Button x:Name="SendMessageButton" Content="Отправить" HorizontalAlignment="Left" Margin="501,295,0,0" VerticalAlignment="Top" Height="39" Width="101" Click="SendMessageButton_Click"/>
         <TextBox x:Name="WriteMessageBox" HorizontalAlignment="Left" Margin="58,295,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="422" Height="39"/>
         <TextBox x:Name="ChatBox" HorizontalAlignment="Left" Margin="58,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="422" Height="154"/>
-        <TextBlock x:Name="InfoBlock" HorizontalAlignment="Left" Margin="538,49,0,0" TextWrapping="Wrap" Text="Info:" VerticalAlignment="Top" Height="227" Width="198"/>
+        <TextBlock x:Name="InfoBlock" HorizontalAlignment="Left" Margin="540,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="227" Width="198"/>
+        <TextBlock HorizontalAlignment="Left" Margin="528,49,0,0" TextWrapping="Wrap" Text="Info:" VerticalAlignment="Top"/>
 
 
     </Grid>

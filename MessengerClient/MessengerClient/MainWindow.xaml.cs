@@ -44,13 +44,13 @@ namespace MessengerClient
 
         private void ShowInfo()
         {
-            InfoBlock.Text = "Info:";
+            InfoBlock.Text = "";
             if (!string.IsNullOrEmpty(ClientInfo["ip"]))
-                InfoBlock.Text += "\n Ip: " + ClientInfo["ip"];
+                InfoBlock.Text += "Ip: " + ClientInfo["ip"] + "\n";
             if (!string.IsNullOrEmpty(ClientInfo["port"]))
-                InfoBlock.Text += "\n Port: " + ClientInfo["port"];
+                InfoBlock.Text += "Port: " + ClientInfo["port"] + "\n";
             if (!string.IsNullOrEmpty(ClientInfo["status"]))
-                InfoBlock.Text += "\n Status: " + ClientInfo["status"];
+                InfoBlock.Text += "Status: " + ClientInfo["status"] + "\n";
         }
 
         private void ParseIpFromFile()
@@ -95,7 +95,7 @@ namespace MessengerClient
         {
             try
             {
-                if (!IsConnected)
+                if (!IsConnected & !string.IsNullOrWhiteSpace(UserNameBox.Text))
                 {
                     Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     SendMessageButton.IsEnabled = true;
@@ -111,6 +111,11 @@ namespace MessengerClient
                         th = new Thread(delegate () { RecvMessage(); });
                         th.Start();
                     }
+                }
+                else if(string.IsNullOrWhiteSpace(UserNameBox.Text))
+                {
+                    ClientInfo["status"] = "Введите имя";
+                    ShowInfo();
                 }
             }
             catch {
@@ -155,9 +160,13 @@ namespace MessengerClient
                 min = "0" + min;
             }
 
-            byte[] buffer = Encoding.UTF8.GetBytes("\n" + UserNameBox.Text + ": " + WriteMessageBox.Text +" | "+ DateTime.Now.Hour + ":" + min + ";;;5");
-            Client.Send(buffer);
-            WriteMessageBox.Clear();
+            if (!string.IsNullOrWhiteSpace(WriteMessageBox.Text))
+            {
+                byte[] buffer = Encoding.UTF8.GetBytes("\n" + UserNameBox.Text + ": " + WriteMessageBox.Text +" | "+ DateTime.Now.Hour + ":" + min + ";;;5");
+                Client.Send(buffer);
+                WriteMessageBox.Clear();
+            }
+            
         }
 
         public void RecvMessage()
