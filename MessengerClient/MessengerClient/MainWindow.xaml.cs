@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows;
 using System.Threading;
 
+
+
 namespace MessengerClient
 {
     /// <summary>
@@ -37,18 +39,18 @@ namespace MessengerClient
         private void InitializeClientInfo()
         {
             ClientInfo = new Dictionary<string, string>();
-            ClientInfo["ip"] = "";
-            ClientInfo["port"] = "";
+            ClientInfo["server ip"] = "";
+            ClientInfo["server port"] = "";
             ClientInfo["status"] = "";
         }
 
         private void ShowInfo()
         {
             InfoBlock.Text = "";
-            if (!string.IsNullOrEmpty(ClientInfo["ip"]))
-                InfoBlock.Text += "Ip: " + ClientInfo["ip"] + "\n";
-            if (!string.IsNullOrEmpty(ClientInfo["port"]))
-                InfoBlock.Text += "Port: " + ClientInfo["port"] + "\n";
+            if (!string.IsNullOrEmpty(ClientInfo["server ip"]))
+                InfoBlock.Text += "IP сервера: " + ClientInfo["server ip"] + "\n";
+            if (!string.IsNullOrEmpty(ClientInfo["server port"]))
+                InfoBlock.Text += "Port сервера: " + ClientInfo["server port"] + "\n";
             if (!string.IsNullOrEmpty(ClientInfo["status"]))
                 InfoBlock.Text += "Status: " + ClientInfo["status"] + "\n";
         }
@@ -63,8 +65,8 @@ namespace MessengerClient
                 string[] connect_info = buffer.Split(':');
                 ip = IPAddress.Parse(connect_info[0]);
                 port = int.Parse(connect_info[1]);
-                ClientInfo["ip"] = ip.ToString();
-                ClientInfo["port"] = port.ToString();
+                ClientInfo["server ip"] = ip.ToString();
+                ClientInfo["server port"] = port.ToString();
                 ShowInfo();
             }
             catch
@@ -218,7 +220,8 @@ namespace MessengerClient
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            Options.MainWindow options = new Options.MainWindow();
+            options.Show();
         }
     }
 }

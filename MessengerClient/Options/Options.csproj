@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3ABE655E-C031-488F-959F-5F0ACF22740A}</ProjectGuid>
+    <ProjectGuid>{76857730-8032-4897-B4F9-2C9F8DFD3AA3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MessengerClient</RootNamespace>
-    <AssemblyName>MessengerClient</AssemblyName>
+    <RootNamespace>Options</RootNamespace>
+    <AssemblyName>Options</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -93,12 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Options\Options.csproj">
-      <Project>{76857730-8032-4897-b4f9-2c9f8dfd3aa3}</Project>
-      <Name>Options</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
