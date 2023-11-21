@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,28 @@ namespace Options
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void CreateFileInfo(string IPport)
+        {
+            DirectoryInfo data = new DirectoryInfo("Client_info");
+            data.Create();
+            using (var sw = new StreamWriter(@"Client_info/data_info.txt"))
+            {
+                sw.WriteLine(IPport);
+            }
+        }
+
+        private void ApplyButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateFileInfo(IpBox.Text);
+        }
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateFileInfo(IpBox.Text);
+            this.Hide();
+
         }
     }
 }

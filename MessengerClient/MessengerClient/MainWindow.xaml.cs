@@ -31,7 +31,7 @@ namespace MessengerClient
             SendMessageButton.IsEnabled = false;
             
             InitializeClientInfo();
-            CreateFileInfo("127.0.0.1:7770");
+            //CreateFileInfo("127.0.0.1:7770");
             ParseIpFromFile();
         }
 
@@ -92,6 +92,7 @@ namespace MessengerClient
                 ShowInfo();
             }
         }
+
 
         private void ConnectUser()
         {
