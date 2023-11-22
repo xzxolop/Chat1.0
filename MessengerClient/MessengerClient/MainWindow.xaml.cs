@@ -31,8 +31,8 @@ namespace MessengerClient
             SendMessageButton.IsEnabled = false;
             
             InitializeClientInfo();
-            //CreateFileInfo("127.0.0.1:7770");
-            ParseIpFromFile();
+            ShowInfo();
+            
         }
 
         
@@ -44,7 +44,7 @@ namespace MessengerClient
             ClientInfo["status"] = "";
         }
 
-        private void ShowInfo()
+        public void ShowInfo()
         {
             InfoBlock.Text = "";
             if (!string.IsNullOrEmpty(ClientInfo["server ip"]))
@@ -55,7 +55,7 @@ namespace MessengerClient
                 InfoBlock.Text += "Status: " + ClientInfo["status"] + "\n";
         }
 
-        private void ParseIpFromFile()
+        public void ParseIpFromFile()
         {
             try
             {
@@ -67,7 +67,6 @@ namespace MessengerClient
                 port = int.Parse(connect_info[1]);
                 ClientInfo["server ip"] = ip.ToString();
                 ClientInfo["server port"] = port.ToString();
-                ShowInfo();
             }
             catch
             {
@@ -76,7 +75,7 @@ namespace MessengerClient
             }
         }
 
-        private void CreateFileInfo(string IPport)
+        public void CreateFileInfo(string IPport)
         {
             try
             {
@@ -86,6 +85,7 @@ namespace MessengerClient
                 {
                     sw.WriteLine(IPport);
                 }
+                ShowInfo();
             }
             catch {
                 ClientInfo["status"] = "Не удалось записать в файл IPport";
@@ -142,7 +142,7 @@ namespace MessengerClient
             }
         }
 
-        public void ConnectButton_Click(object sender, RoutedEventArgs e)
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
             if (IsConnected)
             {
@@ -222,6 +222,7 @@ namespace MessengerClient
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Options options = new Options();
+            options.mainWindow = this;
             options.Show();
         }
     }
