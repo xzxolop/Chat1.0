@@ -221,7 +221,7 @@ namespace MessengerClient
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Options.MainWindow options = new Options.MainWindow();
+            Options options = new Options();
             options.Show();
         }
     }
