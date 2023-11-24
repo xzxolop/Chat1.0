@@ -9,11 +9,11 @@
     <Grid>
         <TextBlock HorizontalAlignment="Center" Margin="0,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="268"><Run Language="ru-ru" Text="Настроки подключения к серверу" FontSize ="16"/></TextBlock>
 
-        <TextBox x:Name="IpBox" Text="{Binding MyText}" FontSize="20" VerticalAlignment="Top" Height="28" Margin="146,63,146,0">
+        <TextBox x:Name="IpBox" Text="{Binding MyText}" FontSize="20" VerticalAlignment="Top" Height="28" Margin="116,63,116,0">
             <TextBox.Resources>
                 <VisualBrush x:Key="WatermarkBrush" Opacity="0.5" Stretch="Uniform">
                     <VisualBrush.Visual>
-                        <Label FontSize="30" Content="Введите адресс" Foreground="Gray"/>
+                        <Label FontSize="30" Content="Введите адресс (127.0.0.1:7770)" Foreground="Gray"/>
                     </VisualBrush.Visual>
                 </VisualBrush>
             </TextBox.Resources>

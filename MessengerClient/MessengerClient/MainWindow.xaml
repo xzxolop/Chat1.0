@@ -54,7 +54,7 @@
             </TextBox.Style>
         </TextBox>
         
-        <TextBlock x:Name="InfoBlock" HorizontalAlignment="Left" Margin="540,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="227" Width="198"/>
+        <TextBlock x:Name="InfoBlock" HorizontalAlignment="Left" Margin="540,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="222" Width="240"/>
         <TextBlock HorizontalAlignment="Left" Margin="528,49,0,0" TextWrapping="Wrap" Text="Info:" VerticalAlignment="Top"/>
 
         <Menu Height="25" VerticalAlignment="Top">
