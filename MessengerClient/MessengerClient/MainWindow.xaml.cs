@@ -67,15 +67,16 @@ namespace MessengerClient
                 port = int.Parse(connect_info[1]);
                 ClientInfo["server ip"] = ip.ToString();
                 ClientInfo["server port"] = port.ToString();
+                ClientInfo["status"] = "IP прочитан";
             }
             catch
             {
-                ClientInfo["status"] = "Не удалось считать IP из файла";
+                ClientInfo["status"] = "Не удалось считать адрес сервера из файла. Попробуйте задать адрес в настроках: Меню -> настройки";
                 ShowInfo();
             }
         }
 
-        public void CreateFileInfo(string IPport)
+        public void CreateFileInfo(string adress)
         {
             try
             {
@@ -83,12 +84,12 @@ namespace MessengerClient
                 data.Create();
                 using (var sw = new StreamWriter(@"Client_info/data_info.txt"))
                 {
-                    sw.WriteLine(IPport);
+                    sw.WriteLine(adress);
                 }
                 ShowInfo();
             }
             catch {
-                ClientInfo["status"] = "Не удалось записать в файл IPport";
+                ClientInfo["status"] = "Не удалось записать в файл адрес сервера";
                 ShowInfo();
             }
         }
@@ -96,6 +97,7 @@ namespace MessengerClient
 
         private void ConnectUser()
         {
+            ParseIpFromFile(); // необходимо, для того, чтобы проверить ввёл ли пользователь адрес сервера
             try
             {
                 if (!IsConnected & !string.IsNullOrWhiteSpace(UserNameBox.Text))
@@ -122,7 +124,7 @@ namespace MessengerClient
                 }
             }
             catch {
-                ClientInfo["status"] = "Не удалось подключиться к серверу";
+                ClientInfo["status"] = "Не удалось подключиться к серверу. Попробуйте ввести в качестве адресса - 127.0.0.1:7770";
                 ShowInfo();
             }
         }
