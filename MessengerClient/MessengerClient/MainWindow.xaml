@@ -32,8 +32,8 @@
 
         <TextBox x:Name="ChatBox" HorizontalAlignment="Left" Margin="58,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="422" Height="154"/>
 
-        <Button x:Name="SendMessageButton" Content="Отправить" HorizontalAlignment="Left" Margin="501,295,0,0" VerticalAlignment="Top" Height="39" Width="101" Click="SendMessageButton_Click"/>
-        <TextBox x:Name="WriteMessageBox" HorizontalAlignment="Left" Margin="58,295,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="422" Height="39">
+        <Button x:Name="SendMessageButton" Content="Отправить" HorizontalAlignment="Left" Margin="501,295,0,0" VerticalAlignment="Top" Height="39" Width="101" Click="SendMessageButton_Click" />
+        <TextBox x:Name="WriteMessageBox" HorizontalAlignment="Left" Margin="58,295,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="422" Height="39" KeyDown="SendMessageByEnter" >
             <TextBox.Resources>
                 <VisualBrush x:Key="WatermarkBrush" Opacity="0.5" Stretch="Uniform">
                     <VisualBrush.Visual>
