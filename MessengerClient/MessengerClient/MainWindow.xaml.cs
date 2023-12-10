@@ -6,8 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Windows;
 using System.Threading;
-
-
+using System.Windows.Input;
 
 namespace MessengerClient
 {
@@ -174,6 +173,16 @@ namespace MessengerClient
             
         }
 
+        public void SendMessageByEnter(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                SendMessageButton_Click(sender, new RoutedEventArgs());
+            }
+        }
+
+
+
         public void RecvMessage()
         {
             byte[] buffer = new byte[1024];
@@ -207,7 +216,6 @@ namespace MessengerClient
                     //print a message from the server
                     this.Dispatcher.Invoke((Action)(() =>
                     {
-                        //message =  UserNameBox.Text + ": " + message +" | "+ DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n";
                         ChatBox.AppendText(message);
                         
                     }));
@@ -227,5 +235,8 @@ namespace MessengerClient
             options.mainWindow = this;
             options.Show();
         }
+
+        
+
     }
 }
