@@ -103,12 +103,13 @@ namespace MessengerClient
                 if (!IsConnected & !string.IsNullOrWhiteSpace(UserNameBox.Text))
                 {
                     Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    SendMessageButton.IsEnabled = true;
-                    WriteMessageBox.IsEnabled = true;
+                    
 
                     if (ip != null)
                     {
                         await Task.Run(() => Client.Connect(ip, port)); // выполнение в фоновом режиме
+                        SendMessageButton.IsEnabled = true;
+                        WriteMessageBox.IsEnabled = true;
                         IsConnected = true;
                         ConnectButton.Content = "Отключиться";
                         
