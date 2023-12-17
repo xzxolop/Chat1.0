@@ -182,6 +182,14 @@ namespace MessengerClient
             }
         }
 
+        public void ConnectByEnter(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter & !this.IsConnected)
+            {
+                ConnectButton_Click(sender, new RoutedEventArgs());
+            }
+        }
+
         public void RecvMessage()
         {
             byte[] buffer = new byte[1024];
