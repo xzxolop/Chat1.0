@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows;
 using System.Threading;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace MessengerClient
 {
@@ -94,7 +95,7 @@ namespace MessengerClient
         }
 
 
-        private void ConnectUser()
+        private async void ConnectUser()
         {
             ParseIpFromFile(); // необходимо, для того, чтобы проверить ввёл ли пользователь адрес сервера
             try
@@ -102,21 +103,21 @@ namespace MessengerClient
                 if (!IsConnected & !string.IsNullOrWhiteSpace(UserNameBox.Text))
                 {
                     Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    SendMessageButton.IsEnabled = true;
-                    WriteMessageBox.IsEnabled = true;
                     
 
-                    if (ip!=null)
+                    if (ip != null)
                     {
-                        Client.Connect(ip, port);
+                        await Task.Run(() => Client.Connect(ip, port)); // выполнение в фоновом режиме
+                        SendMessageButton.IsEnabled = true;
+                        WriteMessageBox.IsEnabled = true;
                         IsConnected = true;
                         ConnectButton.Content = "Отключиться";
-
+                        
                         th = new Thread(delegate () { RecvMessage(); });
                         th.Start();
                     }
                 }
-                else if(string.IsNullOrWhiteSpace(UserNameBox.Text))
+                else if (string.IsNullOrWhiteSpace(UserNameBox.Text))
                 {
                     ClientInfo["status"] = "Введите имя";
                     ShowInfo();
@@ -181,7 +182,13 @@ namespace MessengerClient
             }
         }
 
-
+        public void ConnectByEnter(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter & !this.IsConnected)
+            {
+                ConnectButton_Click(sender, new RoutedEventArgs());
+            }
+        }
 
         public void RecvMessage()
         {

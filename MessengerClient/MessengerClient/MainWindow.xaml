@@ -9,11 +9,11 @@
     <Grid>
 
         <Button x:Name="ConnectButton" Content="Войти" HorizontalAlignment="Left" Margin="58,49,0,0" VerticalAlignment="Top" Height="30" Width="125" Click="ConnectButton_Click"/>
-        <TextBox x:Name="UserNameBox" HorizontalAlignment="Left" Margin="209,49,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="271" Height="30">
+        <TextBox x:Name="UserNameBox" HorizontalAlignment="Left" Margin="209,49,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="271" Height="30" KeyDown="ConnectByEnter">
             <TextBox.Resources>
-                <VisualBrush x:Key="WatermarkBrush" Opacity="0.5" Stretch="Uniform">
+                <VisualBrush x:Key="WatermarkBrush" Opacity="0.5" Stretch="None">
                     <VisualBrush.Visual>
-                        <Label FontSize="30" Content="Введите имя" Foreground="Gray"/>
+                        <Label FontSize="14px" Content="Введите имя" Foreground="Gray"/>
                     </VisualBrush.Visual>
                 </VisualBrush>
             </TextBox.Resources>
@@ -35,9 +35,9 @@
         <Button x:Name="SendMessageButton" Content="Отправить" HorizontalAlignment="Left" Margin="501,295,0,0" VerticalAlignment="Top" Height="39" Width="101" Click="SendMessageButton_Click" />
         <TextBox x:Name="WriteMessageBox" HorizontalAlignment="Left" Margin="58,295,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="422" Height="39" KeyDown="SendMessageByEnter" >
             <TextBox.Resources>
-                <VisualBrush x:Key="WatermarkBrush" Opacity="0.5" Stretch="Uniform">
+                <VisualBrush x:Key="WatermarkBrush" Opacity="0.5" Stretch="None">
                     <VisualBrush.Visual>
-                        <Label FontSize="20" Content="Написать сообщение..." Foreground="Gray"/>
+                        <Label FontSize="14px" Content="Написать сообщение..." Foreground="Gray"/>
                     </VisualBrush.Visual>
                 </VisualBrush>
             </TextBox.Resources>
@@ -53,7 +53,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        
+
         <TextBlock x:Name="InfoBlock" HorizontalAlignment="Left" Margin="540,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="222" Width="240"/>
         <TextBlock HorizontalAlignment="Left" Margin="528,49,0,0" TextWrapping="Wrap" Text="Info:" VerticalAlignment="Top"/>
 
