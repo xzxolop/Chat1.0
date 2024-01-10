@@ -40,5 +40,29 @@ int main() {
 		return 1;
 	}
 
+	// Привязка сокета к ip port
+	sockaddr_in sockInfo;
+	sockInfo.sin_family = AF_INET;
+	sockInfo.sin_port = htons(5555); // htons переупаковывает unsigned short в байты понятные протоколу TCP/IP
+	// Указание ip
+	in_addr ip;
+	errorCode = inet_pton(AF_INET, "127.0.0.1", &ip);
+	if (errorCode < 0) {
+		std::cout << "Error in IP translation to special numeric format" << std::endl;
+		return 0;
+	}
+
+	sockInfo.sin_addr = ip;
+	errorCode = bind(Socket, reinterpret_cast<sockaddr*>(&sockInfo), sizeof(sockInfo));
+	if (errorCode != 0) {
+		std::cout << "Error Socket binding to server info. Error # " << WSAGetLastError() << std::endl;
+		closesocket(Socket);
+		WSACleanup();
+		return 1;
+	}
+	else {
+		std::cout << "Blinding socket to server is OK" << std::endl;
+	}
+
 	return 0;
 }
