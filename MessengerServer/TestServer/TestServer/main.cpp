@@ -43,10 +43,12 @@ int main() {
 	// Привязка сокета к ip port
 	sockaddr_in servInfo;
 	servInfo.sin_family = AF_INET;
-	servInfo.sin_port = htons(5555); // htons переупаковывает unsigned short в байты понятные протоколу TCP/IP
+	int port = 1234;
+	servInfo.sin_port = htons(port); // htons переупаковывает unsigned short в байты понятные протоколу TCP/IP
 	// Указание ip
 	in_addr ip;
-	errorCode = inet_pton(AF_INET, "127.0.0.1", &ip);
+	char ipv4[] = "127.0.0.1";
+	errorCode = inet_pton(AF_INET, ipv4, &ip);
 	if (errorCode < 0) {
 		std::cout << "Error in IP translation to special numeric format" << std::endl;
 		return 0;
@@ -61,7 +63,7 @@ int main() {
 		return 1;
 	}
 	else {
-		std::cout << "Blinding socket to server is OK" << std::endl;
+		std::cout << "Socket is open on " << ipv4 << ":" << port << std::endl;
 	}
 
 	errorCode = listen(Socket, SOMAXCONN);
@@ -74,6 +76,22 @@ int main() {
 	else {
 		std::cout << "Listening..." << std::endl;
 	}
+
+	sockaddr ClientInfo;
+	int client_size = sizeof(ClientInfo);
+	SOCKET Client = accept(Socket, &ClientInfo, &client_size);
+	if (Client == INVALID_SOCKET) {
+		std::cout << "Error: Client detected, but can't connect" << std::endl;
+		closesocket(Socket);
+		closesocket(Client);
+		WSACleanup();
+		return 1;
+	}
+	else {
+		std::cout << "Client connected" << std::endl;
+	}
+
+
 
 	return 0;
 }
