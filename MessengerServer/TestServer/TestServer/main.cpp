@@ -8,7 +8,7 @@
 int main() {
 	WSADATA wsData; // данные о версии сокетов, с которыми мы работаем.
 
-	// Вызов функции запуска сокетов
+	// Инициализация использования библиотеки сетевых служб
 	/* 
 	Первый аргумент - указание диапазона версии сокета - двухбайтовая переменная типа word.
 	В первом байте храниться минимальная версия сокета, во втором максимальная.
@@ -24,6 +24,20 @@ int main() {
 	}
 	else {
 		std::cout << "WinSock initialization is OK" << std::endl;
+	}
+
+	// Инициализация сокета
+	/*
+	AF_NET - IPv4
+	SOCK_STREAM - TCP (SOCK_DGRAM - UDP)
+	тип протокола 0, т.к. тип сокета и так использует протокол TCP 
+	*/
+	SOCKET Socket = socket(AF_INET, SOCK_STREAM, 0);
+	if (Socket == INVALID_SOCKET) {
+		std::cout << "Error init socket: " << WSAGetLastError() << std::endl;
+		closesocket(Socket); 
+		WSACleanup(); // Деинициализация использования библиотеки сетевых служб (минус счётчик ссылок).
+		return 1;
 	}
 
 	return 0;
