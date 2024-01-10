@@ -17,7 +17,14 @@ int main() {
 	Создаётся это значение по правилу y << 8 | x, при х = у = 2, MAKEWORD(2,2) = 514
 	В случае успеха вернёт 0.
 	*/
-	std::cout << WSAStartup(MAKEWORD(2, 2), &wsData) << std::endl;
+	int errorCode = WSAStartup(MAKEWORD(2,2), &wsData);
+	if (errorCode != 0) {
+		std::cout << "Error: WinSock version initialization: " << WSAGetLastError();
+		return 1;
+	}
+	else {
+		std::cout << "WinSock initialization is OK" << std::endl;
+	}
 
 	return 0;
 }
