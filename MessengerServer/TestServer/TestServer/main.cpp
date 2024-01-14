@@ -2,8 +2,24 @@
 #include <WS2tcpip.h> // заголовочный файл, для работы с TCP/IP
 
 #include <iostream>
+#include <vector>
 
 #pragma comment(lib, "ws2_32.lib") // прилинковывает к приложению динамическую библиотеку ядра ОС
+
+void SendMess(const std::vector<char>& message, const std::vector<SOCKET>& clients) {
+	for (auto i = 0; i < clients.size(); i++) {
+		send(clients[i], message.data(), message.size(), 0);
+	}
+}
+
+void RecvMes(const std::vector<SOCKET>& clients) {
+	std::vector<char> message;
+	for (auto i = 0; i < clients.size(); i++) {
+		recv(clients[i], message.data(), message.size(), 0);
+		std::cout << message.data();
+	}
+}
+
 
 int main() {
 	WSADATA wsData; // данные о версии сокетов, с которыми мы работаем.
@@ -80,6 +96,7 @@ int main() {
 	}
 
 	// Подтверждение подключения
+	std::vector<SOCKET> Clients;
 	sockaddr ClientInfo;
 	int client_size = sizeof(ClientInfo);
 	SOCKET Client = accept(Socket, &ClientInfo, &client_size);
@@ -92,8 +109,10 @@ int main() {
 	}
 	else {
 		std::cout << "Client connected" << std::endl;
+		Clients.push_back(Client);
 	}
 
+	
 
 
 	return 0;
