@@ -40,11 +40,12 @@ int main() {
 		return 1;
 	}
 
-	// Привязка сокета к ip port
+	// Подготовка к назначению сокета адресса ip port
 	sockaddr_in servInfo;
 	servInfo.sin_family = AF_INET;
 	int port = 1234;
 	servInfo.sin_port = htons(port); // htons переупаковывает unsigned short в байты понятные протоколу TCP/IP
+	
 	// Указание ip
 	in_addr ip;
 	char ipv4[] = "127.0.0.1";
@@ -55,7 +56,7 @@ int main() {
 	}
 
 	servInfo.sin_addr = ip;
-	errorCode = bind(Socket, reinterpret_cast<sockaddr*>(&servInfo), sizeof(servInfo));
+	errorCode = bind(Socket, reinterpret_cast<sockaddr*>(&servInfo), sizeof(servInfo)); // Связка сокета с ip port
 	if (errorCode != 0) {
 		std::cout << "Error Socket binding to server info. Error # " << WSAGetLastError() << std::endl;
 		closesocket(Socket);
@@ -65,7 +66,8 @@ int main() {
 	else {
 		std::cout << "Socket is open on " << ipv4 << ":" << port << std::endl;
 	}
-
+	
+	// Прослушивание привязанного порта для идентификации подключений
 	errorCode = listen(Socket, SOMAXCONN);
 	if (errorCode != 0) {
 		std::cout << "Error: Can't start to listen to. Error " << WSAGetLastError() << std::endl;
@@ -77,6 +79,7 @@ int main() {
 		std::cout << "Listening..." << std::endl;
 	}
 
+	// Подтверждение подключения
 	sockaddr ClientInfo;
 	int client_size = sizeof(ClientInfo);
 	SOCKET Client = accept(Socket, &ClientInfo, &client_size);
