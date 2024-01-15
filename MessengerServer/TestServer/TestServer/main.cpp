@@ -3,12 +3,20 @@
 
 #include <iostream>
 #include <vector>
+#include <thread>
 
 #pragma comment(lib, "ws2_32.lib") // прилинковывает к приложению динамическую библиотеку ядра ОС
 
 void SendMess(const std::vector<char>& message, const std::vector<SOCKET>& clients) {
 	for (auto i = 0; i < clients.size(); i++) {
-		send(clients[i], message.data(), message.size(), 0);
+		int erCode = send(clients[i], message.data(), message.size(), 0);
+		if (erCode == SOCKET_ERROR) {
+			std::cout << "Failed to send message";
+		}
+		else
+		{
+			std::cout << "Message send";
+		}
 	}
 }
 
@@ -16,7 +24,7 @@ void RecvMes(const std::vector<SOCKET>& clients) {
 	std::vector<char> message;
 	for (auto i = 0; i < clients.size(); i++) {
 		recv(clients[i], message.data(), message.size(), 0);
-		std::cout << message.data();
+		std::cout << "Server:" << message.data();
 	}
 }
 
@@ -110,10 +118,14 @@ int main() {
 	else {
 		std::cout << "Client connected" << std::endl;
 		Clients.push_back(Client);
+		Sleep(1000);
+		std::string mes("Server: Hello;;;5");
+		std::vector<char> message{mes.begin(), mes.end()};
+		SendMess(message, Clients);
 	}
 
-	
 
+	Sleep(100000);
 
 	return 0;
 }
