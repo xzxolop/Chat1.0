@@ -88,26 +88,33 @@ int main() {
 	std::vector<SOCKET> Clients;
 	sockaddr ClientInfo;
 	int client_size = sizeof(ClientInfo);
-	SOCKET Client = accept(Socket, &ClientInfo, &client_size);
-	if (Client == INVALID_SOCKET) {
-		std::cout << "Error: Client detected, but can't connect" << std::endl;
-		closesocket(Socket);
-		closesocket(Client);
-		WSACleanup();
-		return 1;
-	}
-	else {
-		std::cout << "Client connected" << std::endl;
-		Clients.push_back(Client);
-		Sleep(1000);
-		std::string mes("Server: Hello;;;5");
-		std::vector<char> message{mes.begin(), mes.end()};
-		SendMess(message, Clients);
-	}
-	
-	while (true) {
-		RecvMes(Clients, buf);
+
+	while (true)
+	{
+
+
+		SOCKET Client = accept(Socket, &ClientInfo, &client_size);
+		if (Client == INVALID_SOCKET) {
+			std::cout << "Error: Client detected, but can't connect" << std::endl;
+			closesocket(Socket);
+			closesocket(Client);
+			WSACleanup();
+			return 1;
+		}
+		else {
+			std::cout << "Client connected" << std::endl;
+			Clients.push_back(Client);
+			Sleep(1000);
+			std::string mes("Server: Hello;;;5");
+			std::vector<char> message{mes.begin(), mes.end()};
+			SendMess(message, Clients);
+		}
+
+
+		RecvMes(Clients, buf); // блокирует выполнение программы до получения сообщения от клиента. Нужно создавать поток. Также нужно удалять из массива клиентиов, тех клиентиов которые отключились
 		SendMess(buf, Clients);
+		
+
 	}
 	
 
