@@ -17,7 +17,7 @@ inline void Print(const std::vector<char>& v) {
 message - вектор char, с концевиком ввиде ";;;5", это сообщение будет отправлено клиенту.
 clients - вектор сокетов, которым будет отправлено сообщение.
 */
-inline void SendMess(const std::vector<char>& message, const std::vector<SOCKET>& clients) {
+inline void SendMess(const std::vector<SOCKET>& clients, const std::vector<char>& message) {
 	for (auto i = 0; i < clients.size(); i++) {
 		int erCode = send(clients[i], message.data(), message.size(), 0);
 		if (erCode == SOCKET_ERROR) {
