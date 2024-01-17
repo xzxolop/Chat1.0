@@ -9,6 +9,23 @@
 
 std::vector<char> buf(1024);
 
+std::vector<SOCKET> Clients;
+
+void SendMessageToClient(int ID) {
+	char* buffer = new char[1024];
+	for (;; Sleep(75)) {
+		memset(buffer, 0, sizeof(buffer));
+		if (recv(Clients[ID], buffer, 1024, NULL)) {
+			std::cout << buffer << std::endl;
+			for (int i = 0; i < Clients.size(); i++) {
+				send(Clients[i], buffer, strlen(buffer), NULL); 
+			}
+		}
+	}
+	delete buffer;
+}
+
+
 
 int main() {
 	WSADATA wsData; // данные о версии сокетов, с которыми мы работаем.
@@ -72,7 +89,7 @@ int main() {
 	}
 
 	// Подтверждение подключения
-	std::vector<SOCKET> Clients;
+	
 	sockaddr ClientInfo;
 	int client_size = sizeof(ClientInfo);
 
@@ -89,14 +106,17 @@ int main() {
 		else {
 			std::cout << "Client connected" << std::endl;
 			Clients.push_back(Client);
+			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)SendMessageToClient, (LPVOID)(Clients.size() - 1), NULL, NULL);
 			Sleep(1000);
 			std::string mes("Server: Hello;;;5");
 			std::vector<char> message{mes.begin(), mes.end()};
 			SendMess(Clients, message);
 		}
 
-		RecvMes(Clients, buf); // блокирует выполнение программы до получения сообщения от клиента. Нужно создавать поток. Также нужно удалять из массива клиентиов, тех клиентиов которые отключились
-		SendMess(Clients, buf);
+		//RecvMes(Clients, buf); // блокирует выполнение программы до получения сообщения от клиента. Нужно создавать поток. Также нужно удалять из массива клиентиов, тех клиентиов которые отключились
+		//SendMess(Clients, buf);
+
+
 	}
 	
 	return 0;
