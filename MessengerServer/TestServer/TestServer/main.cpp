@@ -8,12 +8,6 @@
 
 #pragma comment(lib, "ws2_32.lib") // прилинковывает к приложению динамическую библиотеку ядра ОС
 
-std::vector<char> buf(1024);
-
-
-
-
-
 
 int main() {
 	std::vector<SOCKET> Clients;
@@ -25,7 +19,6 @@ int main() {
 	
 
 	// Подтверждение подключения
-	
 	sockaddr ClientInfo;
 	int client_size = sizeof(ClientInfo);
 
@@ -43,8 +36,6 @@ int main() {
 			std::cout << "Client connected" << std::endl;
 			Clients.push_back(Client);
 
-			//SendMessageParams params{ Clients, Clients.size() - 1 };
-			//CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)SendMessageToClient, (LPVOID)(&Clients, Clients.size()-1) , NULL, NULL);
 			std::thread th(RecvAndSend, std::ref(Clients), Clients.size()-1);
 			th.detach();
 			Sleep(1000);
@@ -52,7 +43,6 @@ int main() {
 			std::vector<char> message{mes.begin(), mes.end()};
 			SendMes(Clients, message);
 		}
-
 	}
 	
 	return 0;
