@@ -8,41 +8,23 @@
 
 #pragma comment(lib, "ws2_32.lib") // прилинковывает к приложению динамическую библиотеку ядра ОС
 
-
 int main() {
+	MySocket Socket;
+	Socket.InitSocketInterfaces(2, 2);
+	Socket.CreateSocket("127.0.0.1", 1234);
+	Socket.Listen(SOMAXCONN);
+
 	std::vector<SOCKET> Clients;
-
-	Server serv;
-	serv.InitSocketInterfaces(2, 2);
-	serv.CreateSocket("127.0.0.1", 1234);
-	serv.Listen(SOMAXCONN);
-	
-
-	// Подтверждение подключения
-	sockaddr ClientInfo;
-	int client_size = sizeof(ClientInfo);
-
+	std::string WelcomeMes{"Hello!\n"};
 	while (true)
 	{
-		SOCKET Client = accept(serv.Socket, &ClientInfo, &client_size);
-		if (Client == INVALID_SOCKET) {
-			std::cout << "Error: Client detected, but can't connect" << std::endl;
-			closesocket(serv.Socket);
-			closesocket(Client);
-			WSACleanup();
-			return 1;
-		}
-		else {
-			std::cout << "Client connected" << std::endl;
-			Clients.push_back(Client);
+		SOCKET Client = Socket.Accept();
+		Clients.push_back(Client);
 
-			std::thread th(RecvAndSend, std::ref(Clients), Clients.size()-1);
-			th.detach();
-			Sleep(1000);
-			std::string mes("Server: Hello;;;5");
-			std::vector<char> message{mes.begin(), mes.end()};
-			SendMes(Clients, message);
-		}
+		std::thread th(RecvAndSend, std::ref(Clients), Clients.size() - 1);
+		th.detach();
+		
+		SendMes(Clients, "Server: Hello\n;;;5");
 	}
 	
 	return 0;

@@ -1,9 +1,9 @@
-#pragma once
+п»ї#pragma once
 #include <vector>
 #include <iostream>
 
 /*
-Функция печати вектора char
+Р¤СѓРЅРєС†РёСЏ РїРµС‡Р°С‚Рё РІРµРєС‚РѕСЂР° char
 */
 inline void Print(const std::vector<char>& v) {
 	for (auto x : v) {
@@ -13,11 +13,11 @@ inline void Print(const std::vector<char>& v) {
 }
 
 /*
-Функция отправки сообщения клиенту
-message - вектор char, с концевиком ввиде ";;;5", это сообщение будет отправлено клиенту.
-clients - вектор сокетов, которым будет отправлено сообщение.
+Р¤СѓРЅРєС†РёСЏ РѕС‚РїСЂР°РІРєРё СЃРѕРѕР±С‰РµРЅРёСЏ РєР»РёРµРЅС‚Сѓ
+message - РІРµРєС‚РѕСЂ char, СЃ РєРѕРЅС†РµРІРёРєРѕРј РІРІРёРґРµ ";;;5", СЌС‚Рѕ СЃРѕРѕР±С‰РµРЅРёРµ Р±СѓРґРµС‚ РѕС‚РїСЂР°РІР»РµРЅРѕ РєР»РёРµРЅС‚Сѓ.
+clients - РІРµРєС‚РѕСЂ СЃРѕРєРµС‚РѕРІ, РєРѕС‚РѕСЂС‹Рј Р±СѓРґРµС‚ РѕС‚РїСЂР°РІР»РµРЅРѕ СЃРѕРѕР±С‰РµРЅРёРµ.
 */
-inline void SendMes(const std::vector<SOCKET>& clients, const std::vector<char>& message) {
+inline void SendMes(const std::vector<SOCKET>& clients, const std::string& message) {
 	for (auto i = 0; i < clients.size(); i++) {
 		int erCode = send(clients[i], message.data(), message.size(), 0);
 		if (erCode == SOCKET_ERROR) {
@@ -31,7 +31,7 @@ inline void SendMes(const std::vector<SOCKET>& clients, const std::vector<char>&
 }
 
 /*
-Функция принятия сообщений от клиентов.
+Р¤СѓРЅРєС†РёСЏ РїСЂРёРЅСЏС‚РёСЏ СЃРѕРѕР±С‰РµРЅРёР№ РѕС‚ РєР»РёРµРЅС‚РѕРІ.
 */
 inline void RecvMes(const std::vector<SOCKET>& clients, std::vector<char>& message) {
 	for (auto i = 0; i < clients.size(); i++) {

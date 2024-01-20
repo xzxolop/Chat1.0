@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <WinSock2.h>
 #include <WS2tcpip.h>
 
@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-class ISocketServer {//Просто функционал
+class ISocket {//РџСЂРѕСЃС‚Рѕ С„СѓРЅРєС†РёРѕРЅР°Р»
 	
 public:
 	virtual void InitSocketInterfaces(int minVersion, int MaxVersion) = 0;
@@ -21,8 +21,7 @@ public:
 };
 
 
-class Server : public ISocketServer {
-	
+class MySocket : public ISocket {	
 public:
 	void InitSocketInterfaces(int minVersion, int maxVersion) override {
 		int erCode = WSAStartup(MAKEWORD(minVersion, maxVersion), &wsData);
@@ -40,9 +39,9 @@ public:
 
 		sockaddr_in servInfo;
 		servInfo.sin_family = AF_INET;
-		servInfo.sin_port = htons(port); // htons переупаковывает unsigned short в байты понятные протоколу TCP/IP
+		servInfo.sin_port = htons(port); // htons РїРµСЂРµСѓРїР°РєРѕРІС‹РІР°РµС‚ unsigned short РІ Р±Р°Р№С‚С‹ РїРѕРЅСЏС‚РЅС‹Рµ РїСЂРѕС‚РѕРєРѕР»Сѓ TCP/IP
 
-		// Указание ip
+		// РЈРєР°Р·Р°РЅРёРµ ip
 		in_addr ip;
 		int errorCode = inet_pton(AF_INET, ipv4, &ip);
 		if (errorCode < 0) {
@@ -51,7 +50,7 @@ public:
 		}
 
 		servInfo.sin_addr = ip;
-		errorCode = bind(Socket, reinterpret_cast<sockaddr*>(&servInfo), sizeof(servInfo)); // Связка сокета с ip port
+		errorCode = bind(Socket, reinterpret_cast<sockaddr*>(&servInfo), sizeof(servInfo)); // РЎРІСЏР·РєР° СЃРѕРєРµС‚Р° СЃ ip port
 		if (errorCode != 0) {
 			std::cout << "Error Socket binding to server info. Error # " << WSAGetLastError() << std::endl;
 			closesocket(Socket);
@@ -63,7 +62,7 @@ public:
 		}
 	}
 
-	// Прослушивание привязанного порта для идентификации подключений
+	// РџСЂРѕСЃР»СѓС€РёРІР°РЅРёРµ РїСЂРёРІСЏР·Р°РЅРЅРѕРіРѕ РїРѕСЂС‚Р° РґР»СЏ РёРґРµРЅС‚РёС„РёРєР°С†РёРё РїРѕРґРєР»СЋС‡РµРЅРёР№
 	void Listen(int maxClients) override {
 		int errorCode = listen(Socket, maxClients);
 		if (errorCode != 0) {
@@ -77,13 +76,32 @@ public:
 		}
 	}
 
+	SOCKET& Accept() {
+		sockaddr ClientInfo;
+		int client_size = sizeof(ClientInfo);
+		
+		SOCKET Client = accept(Socket, &ClientInfo, &client_size);
+		if (Client == INVALID_SOCKET) {
+			std::cout << "Error: Client detected, but can't connect" << std::endl;
+			closesocket(Socket);
+			closesocket(Client);
+			WSACleanup();
+		}
+		else {
+			std::cout << "Client connected" << std::endl;
+			
+			return Client;
+		}
+	}
+
+
 protected:
 	void InitSocket() {
 		Socket = socket(AF_INET, SOCK_STREAM, 0);
 		if (Socket == INVALID_SOCKET) {
 			std::cout << "Error init socket: " << WSAGetLastError() << std::endl;
 			closesocket(Socket);
-			WSACleanup(); // Деинициализация использования библиотеки сетевых служб (минус счётчик ссылок).
+			WSACleanup(); // Р”РµРёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ Р±РёР±Р»РёРѕС‚РµРєРё СЃРµС‚РµРІС‹С… СЃР»СѓР¶Р± (РјРёРЅСѓСЃ СЃС‡С‘С‚С‡РёРє СЃСЃС‹Р»РѕРє).
 			return;
 		}
 	}
