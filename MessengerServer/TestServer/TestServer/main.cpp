@@ -1,7 +1,4 @@
-﻿#include <WinSock2.h> // заголовочный файл, для работы с сокетами.
-#include <WS2tcpip.h> // заголовочный файл, для работы с TCP/IP
-
-#include <thread>
+﻿#include <thread>
 
 #include "Functions.h"
 #include "Socket.h"
@@ -15,16 +12,16 @@ int main() {
 	Socket.Listen(SOMAXCONN);
 
 	std::vector<SOCKET> Clients;
-	std::string WelcomeMes{"Hello!\n"};
+	std::string mes {"Server: Hello\n;;;5"};
+	std::vector<char> message{mes.begin(), mes.end()};
 	while (true)
 	{
 		SOCKET Client = Socket.Accept();
 		Clients.push_back(Client);
+		SendMes(Client, message);
 
-		std::thread th(RecvAndSend, std::ref(Clients), Clients.size() - 1);
+		std::thread th(RecvAndSend2, std::ref(Clients), Clients.size()-1);
 		th.detach();
-		
-		SendMes(Clients, "Server: Hello\n;;;5");
 	}
 	
 	return 0;

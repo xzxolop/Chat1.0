@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-class ISocket {//Просто функционал
+class ISocket {
 	
 public:
 	virtual void InitSocketInterfaces(int minVersion, int MaxVersion) = 0;
