@@ -61,9 +61,10 @@ inline void RecvAndSend(std::vector<SOCKET>& Clients, int ID) {
 inline void RecvAndSend2(std::vector<SOCKET>& Clients, int ID) {
 	auto message = new std::vector<char>(1024);
 	while (true) {
-		memset(message->data(), 0, sizeof(message->data()));
-		if (recv(Clients[ID], message->data(), 1024, 0)) {
-			Print(*message);
+		if (int size = recv(Clients[ID], message->data(), 1024, 0)) { // if нужен, чтобы не было "спаминга" сообщениями.
+			message->data()[size] = '\0';
+			std::cout << message->data();
+
 			for (int i = 0; i < Clients.size(); i++) {
 				send(Clients[i], message->data(), 1024, 0);
 			}

@@ -12,7 +12,7 @@ int main() {
 	Socket.Listen(SOMAXCONN);
 
 	std::vector<SOCKET> Clients;
-	std::string mes {"Server: Hello\n;;;5"};
+	std::string mes {"Server: Hello;;;5"};
 	std::vector<char> message{mes.begin(), mes.end()};
 	while (true)
 	{
