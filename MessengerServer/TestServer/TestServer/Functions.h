@@ -59,3 +59,28 @@ inline void RecvAndSend(std::vector<SOCKET>& Clients, int ID) {
 	delete[] message;
 }
 
+inline int rMes(SOCKET& client, char* message) {
+	int size = recv(client, message, 1024, 0);
+	if (size) {
+		message[size] = '\0';
+		std::cout << message;
+	}
+	
+	return size;
+}
+
+inline void sMes(SOCKET& client, char* message) {
+	send(client, message, 1024, 0);
+}
+
+inline void RecvAndSend2(std::vector<SOCKET>& Clients, int ID) {
+	auto message = new std::vector<char>(1024);
+	while (true) {
+		if (rMes(Clients[ID], message->data())) {
+			for (int i = 0; i < Clients.size(); i++) {
+				sMes(Clients[i], message->data());
+			}
+		}
+	}
+	delete[] message;
+}
