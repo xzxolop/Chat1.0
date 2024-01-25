@@ -45,20 +45,6 @@ inline void RecvMes(const SOCKET& client, std::vector<char>& message) {
 }
 
 inline void RecvAndSend(std::vector<SOCKET>& Clients, int ID) {
-	char* buffer = new char[1024];
-	for (;; Sleep(75)) { // здесь цикл не случаен.
-		memset(buffer, 0, sizeof(buffer));
-		if (recv(Clients[ID], buffer, 1024, NULL)) {
-			std::cout << buffer << std::endl;
-			for (int i = 0; i < Clients.size(); i++) {
-				send(Clients[i], buffer, strlen(buffer), NULL);
-			}
-		}
-	}
-	delete buffer;
-}
-
-inline void RecvAndSend2(std::vector<SOCKET>& Clients, int ID) {
 	auto message = new std::vector<char>(1024);
 	while (true) {
 		if (int size = recv(Clients[ID], message->data(), 1024, 0)) { // if нужен, чтобы не было "спаминга" сообщениями.
@@ -72,3 +58,4 @@ inline void RecvAndSend2(std::vector<SOCKET>& Clients, int ID) {
 	}
 	delete[] message;
 }
+
