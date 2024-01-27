@@ -18,9 +18,9 @@ int main() {
 	{
 		SOCKET Client = Socket.Accept();
 		Clients.push_back(Client);
-		SendMes(Client, message);
+		SendMes(Client, message.data());
 
-		std::thread th(RecvAndSend2, std::ref(Clients), Clients.size()-1);
+		std::thread th(RecvAndSend, std::ref(Clients), Clients.size()-1);
 		th.detach();
 	}
 	

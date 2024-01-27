@@ -15,53 +15,12 @@ inline void Print(const std::vector<char>& v) {
 	std::cout << std::endl;
 }
 
-/*
-Функция отправки сообщения клиенту
-message - вектор char, с концевиком ввиде ";;;5", это сообщение будет отправлено клиенту.
-clients - вектор сокетов, которым будет отправлено сообщение.
-*/
-inline void SendMes(const SOCKET& client, std::vector<char>& message) {
-	int erCode = send(client, message.data(), 1024, 0);
-	if (erCode == SOCKET_ERROR) {
-		std::cout << "Failed to send message" << std::endl;
-	}
-	else
-	{
-		std::cout << "Message send" << std::endl;
-	}
-}
-
-/*
-Функция принятия сообщений от клиента.
-*/
-inline void RecvMes(const SOCKET& client, std::vector<char>& message) {
-	int erCode = recv(client, message.data(), 1024, 0);
-	if (erCode == INVALID_SOCKET) {
-		std::cout << "Failed to recv message";
+inline int RecvMes(const SOCKET& client, char* message) {
+	int size = recv(client, message, 1024, 0);
+	if (size == SOCKET_ERROR) {
+		std::cout << "Failed to recv message" << std::endl;
 	}
 	else {
-		std::cout << message.data() << std::endl;
-	}
-}
-
-inline void RecvAndSend(std::vector<SOCKET>& Clients, int ID) {
-	auto message = new std::vector<char>(1024);
-	while (true) {
-		if (int size = recv(Clients[ID], message->data(), 1024, 0)) { // if нужен, чтобы не было "спаминга" сообщениями.
-			message->data()[size] = '\0';
-			std::cout << message->data();
-
-			for (int i = 0; i < Clients.size(); i++) {
-				send(Clients[i], message->data(), 1024, 0);
-			}
-		}
-	}
-	delete[] message;
-}
-
-inline int rMes(SOCKET& client, char* message) {
-	int size = recv(client, message, 1024, 0);
-	if (size) {
 		message[size] = '\0';
 		std::cout << message;
 	}
@@ -69,18 +28,38 @@ inline int rMes(SOCKET& client, char* message) {
 	return size;
 }
 
-inline void sMes(SOCKET& client, char* message) {
-	send(client, message, 1024, 0);
+inline void SendMes(const SOCKET& client, char* message) {
+	int erCode = send(client, message, 1024, 0);
+	if (erCode == SOCKET_ERROR) {
+		std::cout << "Failed to send message" << std::endl;
+	}
 }
 
-inline void RecvAndSend2(std::vector<SOCKET>& Clients, int ID) {
+inline void RecvAndSend(std::vector<SOCKET>& Clients, int ID) {
 	auto message = new std::vector<char>(1024);
 	while (true) {
-		if (rMes(Clients[ID], message->data())) {
+		if (RecvMes(Clients[ID], message->data())) {
 			for (int i = 0; i < Clients.size(); i++) {
-				sMes(Clients[i], message->data());
+				SendMes(Clients[i], message->data());
 			}
 		}
 	}
 	delete[] message;
+}
+
+namespace OldFunctions {
+	inline void RecvAndSend_old(std::vector<SOCKET>& Clients, int ID) {
+		auto message = new std::vector<char>(1024);
+		while (true) {
+			if (int size = recv(Clients[ID], message->data(), 1024, 0)) { // if нужен, чтобы не было "спаминга" сообщениями.
+				message->data()[size] = '\0';
+				std::cout << message->data();
+
+				for (int i = 0; i < Clients.size(); i++) {
+					send(Clients[i], message->data(), 1024, 0);
+				}
+			}
+		}
+		delete[] message;
+	}
 }
