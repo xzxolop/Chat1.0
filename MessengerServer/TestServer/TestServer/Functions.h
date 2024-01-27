@@ -5,10 +5,8 @@
 #include <vector>
 #include <iostream>
 
-/*
-Функция печати вектора char
-*/
-inline void Print(const std::vector<char>& v) {
+template<typename T>
+inline void Print(const std::vector<T>& v) {
 	for (auto x : v) {
 		std::cout << x;
 	}
