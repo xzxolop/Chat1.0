@@ -38,11 +38,9 @@ inline int RecvMes(std::vector<SOCKET>& Clients, int id, char* message) {
 	
 	if (IsClientCommand(message, "/disconnect")) {
 		std::cout << "Client disconnect" << std::endl;
-		//closesocket(Clients[id]);
-		//shutdown(Clients[id], SD_BOTH);
-		//WSACleanup();
-		//Clients.erase(Clients.begin() + id);
-		//std::cout << "size: " << Clients.size()<<std::endl;
+		closesocket(Clients[id]);
+		shutdown(Clients[id], SD_BOTH);
+		Clients.erase(Clients.begin() + id);
 		return 0;
 	}
 	
