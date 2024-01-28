@@ -4,23 +4,46 @@
 
 #include <vector>
 #include <iostream>
+#include <thread>
 
 template<typename T>
-inline void Print(const std::vector<T>& v) {
+void Print(const std::vector<T>& v) {
 	for (auto x : v) {
 		std::cout << x;
 	}
 	std::cout << std::endl;
 }
 
-inline int RecvMes(const SOCKET& client, char* message) {
-	int size = recv(client, message, 1024, 0);
+inline bool IsClientCommand(const char* message, const char* command) {
+	auto index = strstr(message, command);
+	if (index != nullptr) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+
+inline int RecvMes(std::vector<SOCKET>& Clients, int id, char* message) {
+	int size = recv(Clients[id], message, 1024, 0);
 	if (size == SOCKET_ERROR) {
 		std::cout << "Failed to recv message" << std::endl;
+		closesocket(Clients[id]);
 	}
 	else {
 		message[size] = '\0';
 		std::cout << message;
+	}
+	
+	if (IsClientCommand(message, "/disconnect")) {
+		std::cout << "Client disconnect" << std::endl;
+		//closesocket(Clients[id]);
+		//shutdown(Clients[id], SD_BOTH);
+		//WSACleanup();
+		//Clients.erase(Clients.begin() + id);
+		//std::cout << "size: " << Clients.size()<<std::endl;
+		return 0;
 	}
 	
 	return size;
@@ -33,14 +56,18 @@ inline void SendMes(const SOCKET& client, char* message) {
 	}
 }
 
-inline void RecvAndSend(std::vector<SOCKET>& Clients, int ID) {
-	auto message = new std::vector<char>(1024);
+inline void RecvAndSend(std::vector<SOCKET>& Clients, int id) {
+	auto message = new std::vector<char>(1024); // буфер надо чистить
 	while (true) {
-		if (RecvMes(Clients[ID], message->data())) {
+		if (RecvMes(Clients, id, message->data())) {
 			for (int i = 0; i < Clients.size(); i++) {
 				SendMes(Clients[i], message->data());
 			}
 		}
+		else {
+			return;
+		}
+		
 	}
 	delete[] message;
 }
@@ -61,3 +88,4 @@ namespace OldFunctions {
 		delete[] message;
 	}
 }
+
