@@ -133,14 +133,19 @@ namespace MessengerClient
         {
             if(IsConnected)
             {
+                byte[] command = Encoding.UTF8.GetBytes("/disconnect");
+                Client.Send(command);
+
                 Client.Disconnect(false);
-                
+
                 SendMessageButton.IsEnabled = false;
                 WriteMessageBox.IsEnabled = false;
                 ChatBox.IsEnabled = false;
 
                 IsConnected = false;
                 ConnectButton.Content = "Подключиться";
+
+                
             }
         }
 
