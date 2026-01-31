@@ -1,7 +1,8 @@
 all : clean main.out
 
 main.out : main.cpp
-	g++ main.cpp -o main.out
+	mkdir build
+	g++ main.cpp -o ./build/main.out
 
 clean :
-	rm main.out
+	rm -rf ./build
