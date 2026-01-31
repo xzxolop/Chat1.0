@@ -1,4 +1,8 @@
-﻿#include <thread>
+﻿
+# define LINUX
+
+#if defined(WINDOWS) // заменить на _WIN32
+#include <thread>
 
 #include "Functions.h"
 #include "Socket.h"
@@ -26,3 +30,14 @@ int main() {
 	
 	return 0;
 }
+
+#elif defined(LINUX)
+#include <iostream>
+
+int main() {
+	std::cout << "cpp verson: " << __cplusplus << std::endl;
+
+	return 0;
+}
+
+#endif
