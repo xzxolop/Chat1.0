@@ -6,8 +6,11 @@ BUILD_DIR = ./build
 .PHONY: all
 all : clean createBuildDir main.out
 	
-main.out : main.cpp
+main.o : main.cpp
 	$(CXX) $(FLAGS) -c $^ -o $(BUILD_DIR)/$@
+
+main.out: main.o
+	$(CXX) $(FLAGS) $(BUILD_DIR)/$^ -o $(BUILD_DIR)/$@
 
 .PHONY: clean
 clean :

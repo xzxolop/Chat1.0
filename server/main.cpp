@@ -32,11 +32,20 @@ int main() {
 }
 
 #elif defined(LINUX)
+
+#include <sys/socket.h>
 #include <iostream>
 
 int main() {
 	std::cout << "cpp verson: " << __cplusplus << std::endl;
-
+	
+	int fileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
+	if (fileDescriptor == -1) {
+		std::cout << "socket create failed: " << errno << std::endl;
+	} else {
+		std::cout << "socket create!" << std::endl;
+	}
+	
 	return 0;
 }
 
