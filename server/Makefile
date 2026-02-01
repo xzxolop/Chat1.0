@@ -6,12 +6,13 @@ BUILD_DIR = ./build
 .PHONY: all
 all : clean createBuildDir main.out
 	
-
 main.out : main.cpp
-	$(CXX) $(FLAGS) main.cpp -o $(BUILD_DIR)/main.out
+	$(CXX) $(FLAGS) -c $^ -o $(BUILD_DIR)/$@
 
+.PHONY: clean
 clean :
 	rm -rf $(BUILD_DIR)
 
+.PHONY: createBuildDir
 createBuildDir:
 	mkdir -p $(BUILD_DIR)
