@@ -1,8 +1,11 @@
+FLAGS ?= -O0
+BUILD_DIR = ./build
+
 all : clean main.out
 
 main.out : main.cpp
-	mkdir build
-	g++ main.cpp -o ./build/main.out
+	mkdir -p $(BUILD_DIR)
+	g++ $(FLAGS) main.cpp -o $(BUILD_DIR)/main.out
 
 clean :
-	rm -rf ./build
+	rm -rf $(BUILD_DIR)
