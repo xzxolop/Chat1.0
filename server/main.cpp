@@ -33,19 +33,16 @@ int main() {
 
 #elif defined(LINUX)
 
-#include <sys/socket.h>
 #include <iostream>
 
+#include <boost/asio.hpp>
+
 int main() {
-	std::cout << "cpp verson: " << __cplusplus << std::endl;
-	
-	int fileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
-	if (fileDescriptor == -1) {
-		std::cout << "socket create failed: " << errno << std::endl;
-	} else {
-		std::cout << "socket create!" << std::endl;
-	}
-	
+	boost::asio::io_context io;
+    boost::asio::steady_timer timer(io, boost::asio::chrono::seconds(2));    
+    std::cout << "Таймер установлен на 2 секунды..." << std::endl;
+
+
 	return 0;
 }
 
