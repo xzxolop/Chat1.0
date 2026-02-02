@@ -30,8 +30,18 @@
 Запуск готового приложения:
 * Скачать собранное приложение вы можете во вкладке релизы.
 
-## Запуск на linux
+## Сборка
 
+### Сборка на linux
+
+**С помощью Make**
 cd server
 make -f makefile all
 ./build/main.out
+
+### Сборка на Windows
+
+**С помощью g++**
+cd server
+.\server\main.cpp -lws2_32 -lpthread
+./a.exe

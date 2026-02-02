@@ -1,7 +1,5 @@
 ﻿
-# define LINUX
-
-#if defined(WINDOWS) // заменить на _WIN32
+#if defined(_WIN32)
 #include <thread>
 
 #include "Functions.h"
@@ -10,6 +8,8 @@
 #pragma comment(lib, "ws2_32.lib") // прилинковывает к приложению динамическую библиотеку ядра ОС
 
 int main() {
+	std::cout << "cpp verson: " << __cplusplus << std::endl;
+
 	MySocket Socket;
 	Socket.InitSocketInterfaces(2, 2);
 	Socket.CreateSocket("127.0.0.1", 1234);
@@ -31,13 +31,15 @@ int main() {
 	return 0;
 }
 
-#elif defined(LINUX)
+#elif defined(__linux__)
 
 #include <iostream>
 
 #include <boost/asio.hpp>
 
 int main() {
+	std::cout << "cpp verson: " << __cplusplus << std::endl;
+
 	boost::asio::io_context io;
     boost::asio::steady_timer timer(io, boost::asio::chrono::seconds(2));    
     std::cout << "Таймер установлен на 2 секунды..." << std::endl;

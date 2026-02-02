@@ -76,7 +76,7 @@ public:
 		}
 	}
 
-	SOCKET& Accept() {
+	SOCKET Accept() {
 		sockaddr ClientInfo;
 		int client_size = sizeof(ClientInfo);
 		
@@ -89,9 +89,8 @@ public:
 		}
 		else {
 			std::cout << "Client connected" << std::endl;
-			
-			return Client;
 		}
+		return Client;
 	}
 
 
