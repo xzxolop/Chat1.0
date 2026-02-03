@@ -44,4 +44,10 @@ make -f makefile all
 **С помощью g++**
 cd server
 .\server\main.cpp -lws2_32 -lpthread
-./a.exe
+.\a.exe
+
+**CMake**
+rm -rf build
+cmake -DCMAKE_BUILD_TYPE=Release -S . -B build 
+cmake --build ./build
+env CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --target test
